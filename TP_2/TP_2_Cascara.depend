@@ -1,0 +1,30 @@
+# depslib dependency file v1.0
+1461613541 source:i:\documents and settings\gustavo\escritorio\18-apr-2016\tp_2\tp_2_cascara\funciones.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	<string.h>
+	"funciones.h"
+
+1461613541 i:\documents and settings\gustavo\escritorio\18-apr-2016\tp_2\tp_2_cascara\funciones.h
+
+1461611703 source:i:\documents and settings\gustavo\escritorio\18-apr-2016\tp_2\tp_2_cascara\main.c
+	<stdio.h>
+	<stdlib.h>
+	"funciones.h"
+
+1461979344 source:c:\users\chusti\desktop\programacion\supreme-waffle-master\tp_2_cascara\main.c
+	<stdio.h>
+	<stdlib.h>
+	"funciones.h"
+	<string.h>
+
+1461978576 c:\users\chusti\desktop\programacion\supreme-waffle-master\tp_2_cascara\funciones.h
+
+1461979415 source:c:\users\chusti\desktop\programacion\supreme-waffle-master\tp_2_cascara\funciones.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	<string.h>
+	"funciones.h"
+
