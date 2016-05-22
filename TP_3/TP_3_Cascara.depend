@@ -1,0 +1,24 @@
+# depslib dependency file v1.0
+1463876709 source:c:\users\gustavo\desktop\bug-free-telegram-master\tp_3_cascara\input.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"input.h"
+
+1463828302 c:\users\gustavo\desktop\bug-free-telegram-master\tp_3_cascara\input.h
+
+1463867750 source:c:\users\gustavo\desktop\bug-free-telegram-master\tp_3_cascara\main.c
+	<stdio.h>
+	<stdlib.h>
+	"funciones.h"
+
+1463871867 c:\users\gustavo\desktop\bug-free-telegram-master\tp_3_cascara\funciones.h
+	"input.h"
+
+1463896100 source:c:\users\gustavo\desktop\bug-free-telegram-master\tp_3_cascara\funciones.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"funciones.h"
+
