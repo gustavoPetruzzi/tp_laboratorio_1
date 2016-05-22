@@ -22,3 +22,26 @@
 	<string.h>
 	"funciones.h"
 
+1463948712 source:c:\users\gustavo\desktop\nueva carpeta\c\tp_3\funciones.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"funciones.h"
+
+1463929521 c:\users\gustavo\desktop\nueva carpeta\c\tp_3\funciones.h
+	"input.h"
+
+1463828302 c:\users\gustavo\desktop\nueva carpeta\c\tp_3\input.h
+
+1463929650 source:c:\users\gustavo\desktop\nueva carpeta\c\tp_3\input.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"input.h"
+
+1463929239 source:c:\users\gustavo\desktop\nueva carpeta\c\tp_3\main.c
+	<stdio.h>
+	<stdlib.h>
+	"funciones.h"
+

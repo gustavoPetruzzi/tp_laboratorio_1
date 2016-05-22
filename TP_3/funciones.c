@@ -483,19 +483,71 @@ int abrirArchivo(FILE* pArch, char* nombre, char* index)
 }
 */
 
+
+
+
+char * leerArchivo(FILE* pFile)
+{
+    int cantidad;
+    int auxInt;
+    char * pArchivo;
+
+    if(pFile != NULL)
+    {
+        fseek(pFile, 0L, SEEK_END);
+        cantidad = ftell(pFile);
+        //printf("CANTIDAD = %d ", cantidad);
+        pArchivo = malloc(cantidad);
+        rewind(pFile);
+        auxInt = fread(pArchivo,sizeof(char),cantidad, pFile);
+        *(pArchivo+cantidad) = 0;
+        //printf("\nTIENE QUE LEER: %d", auxInt);
+    }
+    return pArchivo;
+}
+
+
+
+
+
+int escribirEnArchivo(FILE* pFile, char* texto)
+{
+    int cantidad;
+    int auxInt;
+    int retorno =-1;
+    if(pFile != NULL && texto != NULL)
+    {
+        cantidad = strlen(texto);
+        auxInt = fwrite(texto, sizeof(char), cantidad, pFile);
+        if(auxInt<cantidad)
+        {
+            printf("error!");
+        }
+        else
+        {
+            printf("success!");
+            retorno = 0;
+        }
+    }
+    return retorno;
+}
+
+
 /**
  *  Genera un archivo html a partir de las peliculas cargadas en el archivo binario.
  *  @param lista la lista de peliculas a ser agregadas en el archivo.
  *  @param nombre el nombre para el archivo.
  */
-
 void generarPagina(EMovie* pMovie, int length)
 {
     int i;
     char nombrePelicula[55];
     int auxInt;
     FILE* fHtml;
-
+    FILE* fIndex1;
+    FILE* fIndex2;
+    char * pIndex1;
+    char * pIndex2;
 
     if(pMovie != NULL && length>0)
     {
@@ -507,6 +559,13 @@ void generarPagina(EMovie* pMovie, int length)
         fHtml = fopen(nombrePelicula, "w");
         if(fHtml!= NULL)
         {
+            fIndex1 = fopen("index1.html", "r");
+            if(fIndex1 != NULL)
+            {
+                pIndex1 = leerArchivo(fIndex1);
+                auxInt = escribirEnArchivo(fHtml, pIndex1);
+            }
+            /*
             fprintf(fHtml, "<!DOCTYPE html>\n");
             fprintf(fHtml, "<!-- Template by Quackit.com -->\n");
             fprintf(fHtml, "<html lang='en'>\n");
@@ -530,12 +589,12 @@ void generarPagina(EMovie* pMovie, int length)
             fprintf(fHtml, "<body>\n");
             fprintf(fHtml, "\t<div class='container'>\n");
             fprintf(fHtml, "\t\t<div class='row'>\n\n\n");
-
+            */
             for(i= 0; i<length; i++)
             {
                 if((pMovie+i)->isEmpty == 0)
                 {
-                fprintf(fHtml, "\t\t\t<article class='col-md-4 article-intro'>\n");
+                fprintf(fHtml, "\n\t\t\t<article class='col-md-4 article-intro'>\n");
                 fprintf(fHtml, "\t\t\t\t<a href='#'>\n");
                 fprintf(fHtml, "\t\t\t\t\t<img class='img-responsive img-rounded' src='http://%s'  alt=''>\n", (pMovie+i)->linkImagen);
                 fprintf(fHtml, "\t\t\t\t</a>\n");
@@ -551,8 +610,14 @@ void generarPagina(EMovie* pMovie, int length)
                 fprintf(fHtml, "\t\t\t</article>\n");
                 }
             }
+            fIndex2 = fopen("index2.html", "r");
+            if(fIndex2 != NULL)
+            {
+                pIndex2 = leerArchivo(fIndex2);
+                auxInt = escribirEnArchivo(fHtml, pIndex2);
+            }
 
-
+            /*
             fprintf(fHtml, "\t\t</div>\n");
             fprintf(fHtml, "\t\t<!-- /.row -->\n");
             fprintf(fHtml, "\t</div>\n");
@@ -567,8 +632,10 @@ void generarPagina(EMovie* pMovie, int length)
             fprintf(fHtml, "\t<script src='js/holder.min.js'></script>\n");
             fprintf(fHtml, "</body>\n");
             fprintf(fHtml, "</html>\n");
-
+            */
         }
     }
     fclose(fHtml);
+    fclose(fIndex1);
+    fclose(fIndex2);
 }
