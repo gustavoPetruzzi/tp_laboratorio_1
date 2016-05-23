@@ -37,13 +37,11 @@ int initArrayEstructuras(EMovie* pMovie, int length)
 
 int cargarArchivo(EMovie *pMovie, int length)
 {
-
 	int flag = 0;
 	FILE *pArch;
 
 	if(pMovie != NULL && length>0)
     {
-
         pArch=fopen("binMovie.dat", "rb");
         if(pArch==NULL)
         {
@@ -63,7 +61,6 @@ int cargarArchivo(EMovie *pMovie, int length)
         if(flag ==0)
         {
             fread(pMovie,sizeof(EMovie),length,pArch);
-
         }
     }
 	fclose(pArch);
@@ -114,7 +111,6 @@ int buscarLibre(EMovie* pMovie, int length)
 {
     int i;
     int indice = -1;
-
     if(pMovie != NULL && length> 0)
     {
         for(i = 0; i<length; i++)
@@ -142,13 +138,13 @@ int buscarPorNombre(EMovie* pMovie, int length)
 {
     int i;
     int indice = -1;
-    char auxTitulo[20];
+    char auxTitulo[50];
     int auxInt;
     if(pMovie != NULL && length> 0)
     {
         do
         {
-            auxInt = getStringSpace(auxTitulo, "Ingrese el titulo de la pelicula: ", "Error: Maximo 50 caracteres", 0, 21);
+            auxInt = getStringSpace(auxTitulo, "Ingrese el titulo de la pelicula: ", "Error: Maximo 50 caracteres\n", 0, 21);
         }while(auxInt!=0);
 
         for(i = 0; i<length; i++)
@@ -178,16 +174,17 @@ int buscarPorNombre(EMovie* pMovie, int length)
  * \param char* descripcion puntero al dato pedido al usuario
  * \param int* puntaje puntero al dato pedido al usuario
  * \param char* linkImagen puntero al dato pedido al usuario
+ * \param int primera vez se pone [1] si se ingresa por primera vez o [0] para modificar
  * \return [-1] si no pudo pedir los datos o [0] si pudo pedir los datos
  *
  */
 
-int pedirDatos(EMovie* pMovie, int length, char* titulo, char* genero, int* duracion, char* descripcion, int* puntaje, char* linkImagen)
+int pedirDatos(EMovie* pMovie, int length, char* titulo, char* genero, int* duracion, char* descripcion, int* puntaje, char* linkImagen, int primeraVez)
 {
     char auxTitulo[50];
     char auxGenero[20];
     int auxDuracion;
-    char auxDescripcion[50];
+    char auxDescripcion[100];
     int auxPuntaje;
     char auxLinkImagen[100];
     int auxInt;
@@ -201,44 +198,49 @@ int pedirDatos(EMovie* pMovie, int length, char* titulo, char* genero, int* dura
         do
         {
             auxInt = getStringSpace(auxTitulo, "Ingrese el titulo de la pelicula: ", "Error: Maximo 50 caracteres", 0, 51);
-            for(i=0;i<length; i++)
-                if(strcmp((pMovie+i)->titulo, auxTitulo) == 0)
+            if(primeraVez == 1)
+            {
+                for(i=0;i<length; i++)
                 {
-                    auxInt = -1;
-                    printf("Ya existe una pelicula con ese titulo!");
-                    break;
+                    if(strcmp((pMovie+i)->titulo, auxTitulo) == 0)
+                    {
+                        auxInt = -1;
+                        printf("Ya existe una pelicula con ese titulo!\n");
+                        break;
+                    }
                 }
+            }
         }while(auxInt!=0);
         strcpy(titulo, auxTitulo);
 
         do
         {
-            auxInt = getStringSpace(auxGenero, "Ingrese el genero: ", "Error: Maximo 20 caracteres", 0, 21);
+            auxInt = getStringSpace(auxGenero, "Ingrese el genero: ", "Error: Maximo 20 caracteres\n", 0, 21);
         }while(auxInt!=0);
         strcpy(genero, auxGenero);
 
         do
         {
-            auxInt = getStringSpace(auxDescripcion, "Ingrese la descripcion: ", "Error: Maximo 100 caracteres", 0, 21);
+            auxInt = getStringSpace(auxDescripcion, "Ingrese la descripcion: ", "Error: Maximo 100 caracteres\n", 0, 101);
         }while(auxInt!=0);
         strcpy(descripcion, auxDescripcion);
 
         do
         {
-            auxInt = getString(auxLinkImagen, "Ingrese el link de la imagen: ", "Error: Maximo 100 caracteres", 0, 101);
+            auxInt = getString(auxLinkImagen, "Ingrese el link de la imagen: ", "Error: Maximo 100 caracteres\n", 0, 101);
         }while(auxInt!=0);
         strcpy(linkImagen, auxLinkImagen);
 
         do
         {
-            auxInt = getInt(&auxDuracion, "Ingrese la duracion de la pelicula de la imagen: ", "Error: duracion minima 60 minutos", 59, 961);
+            auxInt = getInt(&auxDuracion, "Ingrese la duracion de la pelicula de la imagen: ", "Error: duracion minima 60 minutos\n", 59, 961);
             // VALIDO HASTA 961 MINUTOS PORQUE LA PELICULA MAS LARGA HASTA EL MOMENTO ES DE 15HS
         }while(auxInt!=0);
         *duracion = auxDuracion;
 
         do
         {
-            auxInt = getInt(&auxPuntaje, "Ingrese el puntaje: ", "Error: puntaje valido del 1 al 10", 0, 11);
+            auxInt = getInt(&auxPuntaje, "Ingrese el puntaje: ", "Error: puntaje valido del 1 al 10\n", 0, 11);
         }while(auxInt!=0);
         *puntaje = auxPuntaje;
     }
@@ -261,15 +263,16 @@ int pedirDatos(EMovie* pMovie, int length, char* titulo, char* genero, int* dura
 EMovie cargarDatos(char* titulo, char* genero, int* duracion, char* descripcion, int* puntaje, char* linkImagen)
 {
     EMovie auxPelicula;
-
-    strcpy(auxPelicula.titulo, titulo);
-    strcpy(auxPelicula.genero, genero);
-    auxPelicula.duracion = *duracion;
-    strcpy(auxPelicula.descripcion, descripcion);
-    auxPelicula.puntaje = *puntaje;
-    strcpy(auxPelicula.linkImagen, linkImagen);
-    auxPelicula.isEmpty = 0;
-
+    if(titulo != NULL && genero !=NULL && duracion !=NULL && descripcion !=NULL && puntaje != NULL && linkImagen != NULL)
+    {
+        strcpy(auxPelicula.titulo, titulo);
+        strcpy(auxPelicula.genero, genero);
+        auxPelicula.duracion = *duracion;
+        strcpy(auxPelicula.descripcion, descripcion);
+        auxPelicula.puntaje = *puntaje;
+        strcpy(auxPelicula.linkImagen, linkImagen);
+        auxPelicula.isEmpty = 0;
+    }
     return auxPelicula;
 }
 
@@ -291,7 +294,7 @@ int agregarPelicula(EMovie *pMovie, int length)
     char titulo[50];
     char genero[20];
     int duracion;
-    char descripcion[50];
+    char descripcion[100];
     int puntaje;
     char linkImagen[100];
     int auxInt;
@@ -301,19 +304,19 @@ int agregarPelicula(EMovie *pMovie, int length)
         indice = buscarLibre(pMovie, length);
         if(indice !=-1)
         {
-            auxInt = pedirDatos(pMovie, length, titulo, genero, &duracion, descripcion, &puntaje, linkImagen);
+            auxInt = pedirDatos(pMovie, length, titulo, genero, &duracion, descripcion, &puntaje, linkImagen, 1);
             if(auxInt == 0)
             {
                 *(pMovie+indice) = cargarDatos(titulo, genero, &duracion, descripcion, &puntaje, linkImagen);
             }
             else
             {
-                printf("No se ha podido cargar la pelicula");
+                printf("No se ha podido cargar la pelicula\n");
             }
         }
         else
         {
-            printf("No hay mas lugar para cargar peliculas");
+            printf("No hay mas lugar para cargar peliculas\n");
         }
     }
     return retorno;
@@ -343,7 +346,7 @@ int borrarPelicula(EMovie* pMovie, int length)
         {
             do
             {
-                auxInt = siOno(&auxChar, "Desea borrar? s/n", "error: Ingrese 's' para borrar o 'n' para cancelar", 's', 'n');
+                auxInt = siOno(&auxChar, "Desea borrar? s/n", "error: Ingrese 's' para borrar o 'n' para cancelar\n", 's', 'n');
             }while(auxInt !=0);
             if(auxChar == 's')
             {
@@ -357,7 +360,7 @@ int borrarPelicula(EMovie* pMovie, int length)
         }
         else
         {
-            printf("No existe ninguna pelicula con ese nombre");
+            printf("No existe ninguna pelicula con ese nombre\n");
         }
     }
     return retorno;
@@ -371,18 +374,16 @@ int borrarPelicula(EMovie* pMovie, int length)
  * \return [-1] si no pudo borrar la pelicula, [0] si pudo borrarla
  *
  */
-
-
 int modificarPelicula(EMovie* pMovie, int length)
 {
     int retorno = -1;
     int indice;
-    char titulo[20];
+    char titulo[50];
     char genero[20];
     int duracion;
-    char descripcion[50];
+    char descripcion[100];
     int puntaje;
-    char linkImagen[50];
+    char linkImagen[100];
     int auxInt;
     char auxChar;
 
@@ -394,11 +395,11 @@ int modificarPelicula(EMovie* pMovie, int length)
         {
             do
             {
-                auxInt = siOno(&auxChar, "Desea modificar? s/n", "error: Ingrese 's' para borrar o 'n' para cancelar", 's', 'n');
+                auxInt = siOno(&auxChar, "Desea modificar? s/n", "error: Ingrese 's' para borrar o 'n' para cancelar\n", 's', 'n');
             }while(auxInt !=0);
             if(auxChar == 's')
             {
-                auxInt = pedirDatos(pMovie, length, titulo, genero, &duracion, descripcion, &puntaje, linkImagen);
+                auxInt = pedirDatos(pMovie, length, titulo, genero, &duracion, descripcion, &puntaje, linkImagen, 0);
                 if(auxInt == 0)
                 {
                     *(pMovie+indice) = cargarDatos(titulo, genero, &duracion, descripcion, &puntaje, linkImagen);
@@ -418,74 +419,12 @@ int modificarPelicula(EMovie* pMovie, int length)
     return retorno;
 }
 
-
-/*
-int mostrarEmpleado(EMovie* pMovie, int length)
-{
-    int i;
-    int retorno = -1;
-    if(pMovie !=NULL && length> 0)
-    {
-        retorno = 0;
-        for(i=0;i<length;i++)
-        {
-            if((pMovie+i)->isEmpty == 0)
-            {
-                printf("Titulo\n\t%s\nDuracion\n\t%d min\nPuntaje\n\t%d pts\n", (pMovie+i)->titulo, (pMovie+i)->duracion, (pMovie+i)->puntaje);
-                printf("______________________________________________________\n");
-            }
-        }
-    }
-    return retorno;
-}
-*/
-/*
-
-int abrirArchivo(FILE* pArch, char* nombre, char* index)
-{
-    int retorno = -1;
-    int cantidad;
-    int auxInt;
-    char * auxChar;
-    if(nombre != NULL)
-    {
-        pArch = fopen(nombre, "w");
-        if(pArch != NULL)
-        {
-            fseek(pArch, 0L, SEEK_END);
-            cantidad = ftell(pArch);
-            auxChar = realloc(index, (sizeof(char) * cantidad));
-            if(auxChar != NULL)
-            {
-                index = auxChar;
-            }
-            rewind(pArch);
-
-            while(!feof(pArch))
-            {
-               auxInt = fread(index,sizeof(char),cantidad,pArch);
-               if(auxInt!=cantidad)
-               {
-                   if(feof(pArch))
-                   {
-                       retorno = 0;
-                       break;
-                   }
-                   else
-                   {
-                       printf("No se pudo leer el registro");
-                   }
-               }
-            }
-        }
-    }
-    return retorno;
-}
-*/
-
-
-
-
+/** \brief guarda un archivo de texto pasado por parametro
+ *
+ * \param FILE pFile archivo que se guarda
+ * \return devuelve un puntero al archivo guardado por parametro
+ *
+ */
 char * leerArchivo(FILE* pFile)
 {
     int cantidad;
@@ -496,12 +435,24 @@ char * leerArchivo(FILE* pFile)
     {
         fseek(pFile, 0L, SEEK_END);
         cantidad = ftell(pFile);
-        //printf("CANTIDAD = %d ", cantidad);
         pArchivo = malloc(cantidad);
         rewind(pFile);
-        auxInt = fread(pArchivo,sizeof(char),cantidad, pFile);
+        while(!feof(pFile))
+        {
+            auxInt = fread(pArchivo,sizeof(char),cantidad, pFile);
+            if(auxInt != cantidad)
+            {
+                if(feof(pFile))
+                {
+                    break;
+                }
+            }
+            else
+            {
+                printf("No se leyo el ultimo registro\n");
+            }
+        }
         *(pArchivo+cantidad) = 0;
-        //printf("\nTIENE QUE LEER: %d", auxInt);
     }
     return pArchivo;
 }
@@ -509,7 +460,13 @@ char * leerArchivo(FILE* pFile)
 
 
 
-
+/** \brief
+ *
+ * \param
+ * \param
+ * \return
+ *
+ */
 int escribirEnArchivo(FILE* pFile, char* texto)
 {
     int cantidad;
@@ -525,7 +482,6 @@ int escribirEnArchivo(FILE* pFile, char* texto)
         }
         else
         {
-            printf("success!");
             retorno = 0;
         }
     }
@@ -602,9 +558,9 @@ void generarPagina(EMovie* pMovie, int length)
                 fprintf(fHtml, "\t\t\t\t\t<a href='#'>%s</a>\n",(pMovie+i)->titulo);
                 fprintf(fHtml, "\t\t\t\t</h3>\n");
                 fprintf(fHtml, "\t\t\t\t<ul>\n");
-                fprintf(fHtml, "\t\t\t\t\t<li>Genero:%s</li>\n",(pMovie+i)->genero);
-                fprintf(fHtml, "\t\t\t\t\t<li>Puntaje:%d</li>\n",(pMovie+i)->puntaje);
-                fprintf(fHtml, "\t\t\t\t\t<li>Duracion:%d</li>\n",(pMovie+i)->duracion);
+                fprintf(fHtml, "\t\t\t\t\t<li>Genero: %s</li>\n",(pMovie+i)->genero);
+                fprintf(fHtml, "\t\t\t\t\t<li>Puntaje: %d</li>\n",(pMovie+i)->puntaje);
+                fprintf(fHtml, "\t\t\t\t\t<li>Duracion: %d</li>\n",(pMovie+i)->duracion);
                 fprintf(fHtml, "\t\t\t\t</ul>\n");
                 fprintf(fHtml, "\t\t\t\t<p>%s</p>\n",(pMovie+i)->descripcion);
                 fprintf(fHtml, "\t\t\t</article>\n");
@@ -638,4 +594,6 @@ void generarPagina(EMovie* pMovie, int length)
     fclose(fHtml);
     fclose(fIndex1);
     fclose(fIndex2);
+    free(pIndex1);
+    free(pIndex2);
 }

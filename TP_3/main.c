@@ -2,12 +2,13 @@
 #include <stdlib.h>
 #include "funciones.h"
 #define QTY 50
+#define CLEAR system("cls")
+#define PAUSE system("pause")
 int main()
 {
     char seguir='s';
     int opcion=0;
     int auxInt;
-    int i;
     EMovie peliculas[QTY];
 
     auxInt = cargarArchivo(peliculas, QTY);
@@ -23,42 +24,39 @@ int main()
             printf("5- Salir\n");
 
             scanf("%d",&opcion);
-
+            CLEAR;
             switch(opcion)
             {
                 case 1:
                     auxInt = agregarPelicula(peliculas, QTY);
                     if(auxInt == 0)
                     {
-                        printf("Pelicula cargada");
+                        printf("Pelicula cargada\n");
                     }
                     else
                     {
                         printf("No se ha podido cargar la pelicula");
                     }
-                    for(i=0;i<QTY;i++)
-                    {
-
-                        if((peliculas+i)->isEmpty == 0)
-                        {
-
-                            printf("Titulo: %s\n", (peliculas+i)->titulo);
-                        }
-                    }
+                    PAUSE;
+                    CLEAR;
                     break;
                 case 2:
                     auxInt = borrarPelicula(peliculas, QTY);
                     if(auxInt !=0)
                     {
-                        printf("Error");
+                        printf("Error\n");
                     }
+                    PAUSE;
+                    CLEAR;
                     break;
                 case 3:
                     auxInt = modificarPelicula(peliculas, QTY);
                     if(auxInt !=0)
                     {
-                        printf("Error");
+                        printf("Error\n");
                     }
+                    PAUSE;
+                    CLEAR;
                    break;
                 case 4:
                     generarPagina(peliculas, QTY);
