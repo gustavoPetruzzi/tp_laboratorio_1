@@ -39,6 +39,7 @@ int cargarArchivo(EMovie *pMovie, int length)
 {
 	int flag = 0;
 	FILE *pArch;
+	int auxInt;
 
 	if(pMovie != NULL && length>0)
     {
@@ -60,7 +61,21 @@ int cargarArchivo(EMovie *pMovie, int length)
         }
         if(flag ==0)
         {
-            fread(pMovie,sizeof(EMovie),length,pArch);
+            while(!feof(pArch))
+            {
+                auxInt =fread(pMovie,sizeof(EMovie),length,pArch);
+                if(auxInt!=length)
+                {
+                    if(feof(pArch))
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        printf("No se leyo el ultimo registro");
+                    }
+                }
+            }
         }
     }
 	fclose(pArch);
@@ -80,18 +95,30 @@ int cargarArchivo(EMovie *pMovie, int length)
 
 int guardarEnArchivo(EMovie * pMovie, int length)
 {
+    char opcion;
+    FILE *pArch;
+    int auxInt;
     if(pMovie != NULL && length> 0)
     {
-        FILE *pArch;
-
+        do
+        {
+            auxInt = siOno(&opcion, "Desea guardar? s/n ","Error: Ingrese 's' o 'n'", 's', 'n');
+        }while(auxInt!=0);
+        if(auxInt == 0 && opcion =='s')
+        {
             pArch=fopen("binMovie.dat","wb");
             if(pArch == NULL)
             {
+                printf("Un error ha ocurrido");
                 return 1;
             }
-
-        fwrite(pMovie,sizeof(EMovie),length,pArch);
-
+            fwrite(pMovie,sizeof(EMovie),length,pArch);
+        }
+        else
+        {
+            printf("archivo no guardado");
+            return  1;
+        }
         fclose(pArch);
     }
 
@@ -460,11 +487,11 @@ char * leerArchivo(FILE* pFile)
 
 
 
-/** \brief
+/** \brief escribe en el archivo lo pasado por parametro
  *
- * \param
- * \param
- * \return
+ * \param FILE* pFile puntero al archivo donde va a escribir
+ * \param char* texto lo que va a escribir
+ * \return devuelve [0] si pudo escribir todo en el archivo, [-1] si hubo un error
  *
  */
 int escribirEnArchivo(FILE* pFile, char* texto)
@@ -520,75 +547,35 @@ void generarPagina(EMovie* pMovie, int length)
             {
                 pIndex1 = leerArchivo(fIndex1);
                 auxInt = escribirEnArchivo(fHtml, pIndex1);
-            }
-            /*
-            fprintf(fHtml, "<!DOCTYPE html>\n");
-            fprintf(fHtml, "<!-- Template by Quackit.com -->\n");
-            fprintf(fHtml, "<html lang='en'>\n");
-            fprintf(fHtml, "<head>\n");
-            fprintf(fHtml, "\t<meta charset='utf-8'>\n");
-            fprintf(fHtml, "\t<meta http-equiv='X-UA-Compatible' content='IE=edge'>\n");
-            fprintf(fHtml, "\t<meta name='viewport' content='width=device-width, initial-scale=1'>\n");
-            fprintf(fHtml, "\t<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->\n");
-            fprintf(fHtml, "\t<title>Lista peliculas</title>\n");
-            fprintf(fHtml, "\t<!-- Bootstrap Core CSS -->\n");
-            fprintf(fHtml, "\t<link href='css/bootstrap.min.css' rel='stylesheet'>\n");
-            fprintf(fHtml, "\t<!-- Custom CSS: You can use this stylesheet to override any Bootstrap styles and/or apply your own styles -->\n");
-            fprintf(fHtml, "\t<link href='css/custom.css' rel='stylesheet'>\n");
-            fprintf(fHtml, "\t<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->\n");
-            fprintf(fHtml, "\t<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->\n");
-            fprintf(fHtml, "\t<!--[if lt IE 9]>\n");
-            fprintf(fHtml, "\t\t<script src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js'></script>\n");
-            fprintf(fHtml, "\t\t<script src='https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js'></script>\n");
-            fprintf(fHtml, "\t<![endif]-->\n");
-            fprintf(fHtml, "</head>\n");
-            fprintf(fHtml, "<body>\n");
-            fprintf(fHtml, "\t<div class='container'>\n");
-            fprintf(fHtml, "\t\t<div class='row'>\n\n\n");
-            */
-            for(i= 0; i<length; i++)
-            {
-                if((pMovie+i)->isEmpty == 0)
+
+
+                for(i= 0; i<length; i++)
                 {
-                fprintf(fHtml, "\n\t\t\t<article class='col-md-4 article-intro'>\n");
-                fprintf(fHtml, "\t\t\t\t<a href='#'>\n");
-                fprintf(fHtml, "\t\t\t\t\t<img class='img-responsive img-rounded' src='http://%s'  alt=''>\n", (pMovie+i)->linkImagen);
-                fprintf(fHtml, "\t\t\t\t</a>\n");
-                fprintf(fHtml, "\t\t\t\t<h3>\n");
-                fprintf(fHtml, "\t\t\t\t\t<a href='#'>%s</a>\n",(pMovie+i)->titulo);
-                fprintf(fHtml, "\t\t\t\t</h3>\n");
-                fprintf(fHtml, "\t\t\t\t<ul>\n");
-                fprintf(fHtml, "\t\t\t\t\t<li>Genero: %s</li>\n",(pMovie+i)->genero);
-                fprintf(fHtml, "\t\t\t\t\t<li>Puntaje: %d</li>\n",(pMovie+i)->puntaje);
-                fprintf(fHtml, "\t\t\t\t\t<li>Duracion: %d</li>\n",(pMovie+i)->duracion);
-                fprintf(fHtml, "\t\t\t\t</ul>\n");
-                fprintf(fHtml, "\t\t\t\t<p>%s</p>\n",(pMovie+i)->descripcion);
-                fprintf(fHtml, "\t\t\t</article>\n");
+                    if((pMovie+i)->isEmpty == 0)
+                    {
+                    fprintf(fHtml, "\n\t\t\t<article class='col-md-4 article-intro'>\n");
+                    fprintf(fHtml, "\t\t\t\t<a href='#'>\n");
+                    fprintf(fHtml, "\t\t\t\t\t<img class='img-responsive img-rounded' src='http://%s'  alt=''>\n", (pMovie+i)->linkImagen);
+                    fprintf(fHtml, "\t\t\t\t</a>\n");
+                    fprintf(fHtml, "\t\t\t\t<h3>\n");
+                    fprintf(fHtml, "\t\t\t\t\t<a href='#'>%s</a>\n",(pMovie+i)->titulo);
+                    fprintf(fHtml, "\t\t\t\t</h3>\n");
+                    fprintf(fHtml, "\t\t\t\t<ul>\n");
+                    fprintf(fHtml, "\t\t\t\t\t<li>Genero: %s</li>\n",(pMovie+i)->genero);
+                    fprintf(fHtml, "\t\t\t\t\t<li>Puntaje: %d</li>\n",(pMovie+i)->puntaje);
+                    fprintf(fHtml, "\t\t\t\t\t<li>Duracion: %d</li>\n",(pMovie+i)->duracion);
+                    fprintf(fHtml, "\t\t\t\t</ul>\n");
+                    fprintf(fHtml, "\t\t\t\t<p>%s</p>\n",(pMovie+i)->descripcion);
+                    fprintf(fHtml, "\t\t\t</article>\n");
+                    }
+                }
+                fIndex2 = fopen("index2.html", "r");
+                if(fIndex2 != NULL)
+                {
+                    pIndex2 = leerArchivo(fIndex2);
+                    auxInt = escribirEnArchivo(fHtml, pIndex2);
                 }
             }
-            fIndex2 = fopen("index2.html", "r");
-            if(fIndex2 != NULL)
-            {
-                pIndex2 = leerArchivo(fIndex2);
-                auxInt = escribirEnArchivo(fHtml, pIndex2);
-            }
-
-            /*
-            fprintf(fHtml, "\t\t</div>\n");
-            fprintf(fHtml, "\t\t<!-- /.row -->\n");
-            fprintf(fHtml, "\t</div>\n");
-            fprintf(fHtml, "\t<!-- /.container -->\n");
-            fprintf(fHtml, "\t<!-- jQuery -->\n");
-            fprintf(fHtml, "\t<script src='js/jquery-1.11.3.min.js'></script>\n");
-            fprintf(fHtml, "\t<!-- Bootstrap Core JavaScript -->\n");
-            fprintf(fHtml, "\t<script src='js/bootstrap.min.js'></script>\n");
-            fprintf(fHtml, "\t<!-- IE10 viewport bug workaround -->\n");
-            fprintf(fHtml, "\t<script src='js/ie10-viewport-bug-workaround.js'></script>\n");
-            fprintf(fHtml, "\t<!-- Placeholder Images -->\n");
-            fprintf(fHtml, "\t<script src='js/holder.min.js'></script>\n");
-            fprintf(fHtml, "</body>\n");
-            fprintf(fHtml, "</html>\n");
-            */
         }
     }
     fclose(fHtml);

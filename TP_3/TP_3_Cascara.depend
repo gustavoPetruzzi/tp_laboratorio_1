@@ -45,3 +45,26 @@
 	<stdlib.h>
 	"funciones.h"
 
+1464179808 source:e:\tp_3\funciones.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"funciones.h"
+
+1463981758 e:\tp_3\funciones.h
+	"input.h"
+
+1463981758 e:\tp_3\input.h
+
+1464035884 source:e:\tp_3\input.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"input.h"
+
+1463981758 source:e:\tp_3\main.c
+	<stdio.h>
+	<stdlib.h>
+	"funciones.h"
+

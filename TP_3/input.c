@@ -118,8 +118,6 @@ int getChar(char* input,char message[],char eMessage[], char lowLimit, char hiLi
             return -1;
         }
     }
-
-
     printf("%s", eMessage);
     return -1;
 }
