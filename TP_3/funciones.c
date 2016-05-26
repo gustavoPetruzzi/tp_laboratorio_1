@@ -6,7 +6,7 @@
 /** \brief inicializa el array de estructuras
  *
  * \param EMovie* pMovie puntero al array a inicializar
- * \param int length tamaÃ±o maximo del array
+ * \param int length tamaño maximo del array
  * \return devuelve [0] si lo pudo inicializar, [-1] si no
  *
  */
@@ -30,7 +30,7 @@ int initArrayEstructuras(EMovie* pMovie, int length)
 /** \brief Carga el archivo un archivo binario y si no existe, lo crea
  *
  * \param EMovie* pMovie puntero donde guarda los archivos despues de cargarlos
- * \param int length tamaÃ±o maximo del array
+ * \param int length tamaño maximo del array
  * \return [0] si lo pudo cargar, [1] si no pudo
  *
  */
@@ -47,17 +47,19 @@ int cargarArchivo(EMovie *pMovie, int length)
         if(pArch==NULL)
         {
             pArch= fopen("binMovie.dat", "wb");
-
-            flag = initArrayEstructuras(pMovie, length);
-
-            if(flag == -1)
+            printf("HOla");
+            system("pause");
+            auxInt = initArrayEstructuras(pMovie, length);
+            if(auxInt == -1)
             {
                 return 1;
             }
+
             if(pArch==NULL)
             {
                 return 1;
             }
+            flag = 1;
         }
         if(flag ==0)
         {
@@ -88,7 +90,7 @@ int cargarArchivo(EMovie *pMovie, int length)
 /** \brief Guarda la estructura y sus datos en un archivo binario previamente cargado
  *
  * \param EMovie* pMovie puntero al array de estructura
- * \param int length tamaÃ±o maximo del array
+ * \param int length tamaño maximo del array
  * \return [0] si pudo guardar el archivo [1] si no pudo
  *
  */
@@ -130,7 +132,7 @@ int guardarEnArchivo(EMovie * pMovie, int length)
 /** \brief Busca un espacio libre en el array
  *
  * \param EMovie* pMovie puntero al array donde busca el espacio libre
- * \param int length tamaÃ±o maximo del array
+ * \param int length tamaño maximo del array
  * \return el espacio libre si existe, [-1] si no hay espacio
  *
  */
@@ -156,7 +158,7 @@ int buscarLibre(EMovie* pMovie, int length)
 /** \brief Busca el lugar en el array donde esta el nombre
  *
  * \param EMovie* pMovie puntero al array donde busca el espacio libre
- * \param int length tamaÃ±o maximo del array
+ * \param int length tamaño maximo del array
  * \return [-1] si no pudo encontrar el nombre, si lo encontro devuelve el indice
  *
  */
@@ -194,7 +196,7 @@ int buscarPorNombre(EMovie* pMovie, int length)
 /** \brief pide los datos al usuarios de un elemento del array de la estructura
  *
  * \param EMovie* pMovie puntero al array
- * \param int length tamaÃ±o maximo del array
+ * \param int length tamaño maximo del array
  * \param char* titulo puntero al dato pedido al usuario
  * \param char* genero puntero al dato pedido al usuario
  * \param int* duracion puntero al dato pedido al usuario
@@ -308,7 +310,7 @@ EMovie cargarDatos(char* titulo, char* genero, int* duracion, char* descripcion,
 /** \brief agrega un elemento al array de estructuras
  *
  * \param EMovie* pMovie puntero al array
- * \param int length tamaÃ±o maximo del array
+ * \param int length tamaño maximo del array
  * \return [-1] si no pudo agregar el elemento, [0] si lo pudo agregar
  *
  */
@@ -355,7 +357,7 @@ int agregarPelicula(EMovie *pMovie, int length)
 /** \brief Borra un elemento del array de estructuras
  *
  * \param EMovie* pMovie puntero al array
- * \param int length tamaÃ±o maximo del array
+ * \param int length tamaño maximo del array
  * \return [-1] si no pudo borrar la pelicula, [0] si pudo borrarla
  *
  */
@@ -397,7 +399,7 @@ int borrarPelicula(EMovie* pMovie, int length)
 /** \brief modifica un elemento del array
  *
  * \param EMovie* pMovie puntero al array
- * \param int length tamaÃ±o maximo del array
+ * \param int length tamaño maximo del array
  * \return [-1] si no pudo borrar la pelicula, [0] si pudo borrarla
  *
  */
@@ -546,16 +548,8 @@ void generarPagina(EMovie* pMovie, int length)
             if(fIndex1 != NULL)
             {
                 pIndex1 = leerArchivo(fIndex1);
-                if(pIndex1 == NULL)
-                {
-                    printf("error de lectura");
-                }
                 auxInt = escribirEnArchivo(fHtml, pIndex1);
-                if(auxInt != 0)
-                {
-                    printf("error de escritura");
-                }
-		fclose(fIndex1);
+                fclose(fIndex1);
                 for(i= 0; i<length; i++)
                 {
                     if((pMovie+i)->isEmpty == 0)
@@ -576,6 +570,7 @@ void generarPagina(EMovie* pMovie, int length)
                     fprintf(fHtml, "\t\t\t</article>\n");
                     }
                 }
+
                 fIndex2 = fopen("index2.html", "r");
                 if(fIndex2 != NULL)
                 {
