@@ -1,0 +1,198 @@
+# depslib dependency file v1.0
+1465861538 source:f:\tp_entregafinal\arraylist.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"ArrayList.h"
+
+1465681732 .h"
+
+1463521274 f:\tp_entregafinal\arraylist.h
+
+1465362404 source:f:\tp_entregafinal\input.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"input.h"
+
+1464623454 
+
+1465052932 f:\tp_entregafinal\input.h
+
+1465865706 source:f:\tp_entregafinal\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"ArrayList.h"
+	"peliculas.h"
+	"directores.h"
+	"input.h"
+
+1465613616 an.h"
+
+1465859210 f:\tp_entregafinal\peliculas.h
+	"ArrayList.h"
+
+1465865092 source:f:\tp_entregafinal\peliculas.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"peliculas.h"
+	"directores.h"
+	"ArrayList.h"
+	"input.h"
+
+1465842488 source:f:\tp_entregafinal\directores.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"directores.h"
+	"input.h"
+	"ArrayList.h"
+
+1465353196 f:\tp_entregafinal\directores.h
+	"ArrayList.h"
+
+1465861538 source:e:\tp_entregafinal\arraylist.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"ArrayList.h"
+
+1463521274 e:\tp_entregafinal\arraylist.h
+
+1465842488 source:e:\tp_entregafinal\directores.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"directores.h"
+	"input.h"
+	"ArrayList.h"
+
+1465353196 e:\tp_entregafinal\directores.h
+	"ArrayList.h"
+
+1465362404 source:e:\tp_entregafinal\input.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"input.h"
+
+1465052932 e:\tp_entregafinal\input.h
+
+1465865706 source:e:\tp_entregafinal\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"ArrayList.h"
+	"peliculas.h"
+	"directores.h"
+	"input.h"
+
+1465859210 e:\tp_entregafinal\peliculas.h
+	"ArrayList.h"
+
+1465865740 source:e:\tp_entregafinal\peliculas.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"peliculas.h"
+	"directores.h"
+	"ArrayList.h"
+	"input.h"
+
+1464623454 source:e:\tp_entregafinal\systemclean.c
+	<stdio.h>
+	<stdlib.h>
+
+1464623282 e:\tp_entregafinal\systemclean.h
+
+1464623282 f:\tp_entregafinal\systemclean.h
+
+1465611438 source:/media/chusti/KINGSTON/TP_entregaFinal/ArrayList.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"ArrayList.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"ArrayList.h"
+
+1463521274 /media/chusti/KINGSTON/TP_entregaFinal/ArrayList.h
+
+1465577090 source:/media/chusti/KINGSTON/TP_entregaFinal/directores.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"directores.h"
+	"input.h"
+	"ArrayList.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"directores.h"
+	"input.h"
+	"ArrayList.h"
+
+1465353196 /media/chusti/KINGSTON/TP_entregaFinal/directores.h
+	"ArrayList.h"
+	"ArrayList.h"
+
+1465052932 /media/chusti/KINGSTON/TP_entregaFinal/input.h
+
+1465362404 source:/media/chusti/KINGSTON/TP_entregaFinal/input.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"input.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"input.h"
+
+1465769918 source:/media/chusti/KINGSTON/TP_entregaFinal/main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"ArrayList.h"
+	"peliculas.h"
+	"directores.h"
+	"input.h"
+	"systemClean.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"ArrayList.h"
+	"peliculas.h"
+	"directores.h"
+	"input.h"
+	"systemClean.h"
+
+1465748756 /media/chusti/KINGSTON/TP_entregaFinal/peliculas.h
+	"ArrayList.h"
+	"ArrayList.h"
+
+1464623282 /media/chusti/KINGSTON/TP_entregaFinal/systemClean.h
+
+1464623454 source:/media/chusti/KINGSTON/TP_entregaFinal/systemClean.c
+	<stdio.h>
+	<stdlib.h>
+
+1465769789 source:/media/chusti/KINGSTON/TP_entregaFinal/peliculas.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"peliculas.h"
+	"directores.h"
+	"ArrayList.h"
+	"input.h"
+
+1464623454 source:f:\tp_entregafinal\systemclean.c
+	<stdio.h>
+	<stdlib.h>
+
