@@ -196,3 +196,52 @@
 	<stdio.h>
 	<stdlib.h>
 
+1465937082 source:c:\documents and settings\carmen\escritorio\tp_4\arraylist.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"ArrayList.h"
+
+1463521274 c:\documents and settings\carmen\escritorio\tp_4\arraylist.h
+
+1466014157 source:c:\documents and settings\carmen\escritorio\tp_4\directores.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"directores.h"
+	"input.h"
+	"ArrayList.h"
+
+1465353196 c:\documents and settings\carmen\escritorio\tp_4\directores.h
+	"ArrayList.h"
+
+1465052932 c:\documents and settings\carmen\escritorio\tp_4\input.h
+
+1465362404 source:c:\documents and settings\carmen\escritorio\tp_4\input.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"input.h"
+
+1466013656 source:c:\documents and settings\carmen\escritorio\tp_4\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"ArrayList.h"
+	"peliculas.h"
+	"directores.h"
+	"input.h"
+
+1465859210 c:\documents and settings\carmen\escritorio\tp_4\peliculas.h
+	"ArrayList.h"
+
+1465908078 source:c:\documents and settings\carmen\escritorio\tp_4\peliculas.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"peliculas.h"
+	"directores.h"
+	"ArrayList.h"
+	"input.h"
+

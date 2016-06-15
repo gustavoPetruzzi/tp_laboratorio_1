@@ -44,7 +44,7 @@ int main()
                     auxInt = modificarPelicula(listPeliculas, listDirectores);
                     if(auxInt == 0)
                     {
-                        printf("Pelicula modificada");
+                        printf("Pelicula modificada\n");
                     }
                     PAUSE;
                     CLEAR;
@@ -59,7 +59,7 @@ int main()
                     auxInt = agregarDirector(listDirectores);
                     if(auxInt == 0)
                     {
-                        printf("Director cargado!");
+                        printf("Director cargado!\n");
                     }
                     PAUSE;
                     CLEAR;
@@ -68,7 +68,7 @@ int main()
                     backupDirectores = borrarDirector(listDirectores);
                     if(backupDirectores != NULL)
                     {
-                        printf("Director borrado");
+                        printf("Director borrado\n");
                     }
                     PAUSE;
                     CLEAR;
@@ -112,7 +112,7 @@ int main()
                     auxInt =informar(listPeliculas, listDirectores);
                     if(auxInt == -1)
                     {
-                        printf("No se ha podido informar");
+                        printf("No se ha podido informar\n");
                     }
                     PAUSE;
                     CLEAR;

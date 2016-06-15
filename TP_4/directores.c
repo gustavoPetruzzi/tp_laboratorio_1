@@ -33,13 +33,13 @@ int datosDirectores(ArrayList* pListDirectores,char* nombre, char* fechaNacimien
         returnAux = 0;
         do
         {
-            auxInt = getInt(&auxIdDirector, "Ingrese el id del director: ", "error: id invalido", 0, 501);
+            auxInt = getInt(&auxIdDirector, "Ingrese el id del director: ", "error: id invalido ", 0, 501);
             for(i = 0; i<pListDirectores->size; i++)
             {
                 pDirector = al_get(pListDirectores, i);
                 if(pDirector->idDirector == auxIdDirector)
                 {
-                    printf("Ya existe alguien con ese id!");
+                    printf("Ya existe alguien con ese id!\n");
                     auxInt = -1;
                     break;
                 }
@@ -54,7 +54,7 @@ int datosDirectores(ArrayList* pListDirectores,char* nombre, char* fechaNacimien
                 pDirector = al_get(pListDirectores, i);
                 if(strcmp(pDirector->nombre, auxNombre)== 0)
                 {
-                    printf("Ya existe alguien con ese nombre!");
+                    printf("Ya existe alguien con ese nombre!\n");
                     auxInt = -1;
                     break;
                 }
@@ -145,15 +145,19 @@ void printArrayDirectores(ArrayList* pListDirectores)
     eDirector* pDirector;
     int i;
     if(pListDirectores != NULL && (!pListDirectores->isEmpty(pListDirectores)))
-    printf("-----Cantidad total de directores: %d-----", pListDirectores->len(pListDirectores));
-    for(i=0;i<pListDirectores->size;i++)
     {
-        pDirector = al_get(pListDirectores, i);
+        printf("-----Cantidad total de directores: %d-----", pListDirectores->len(pListDirectores));
+        for(i=0;i<pListDirectores->size;i++)
+        {
+            pDirector = al_get(pListDirectores, i);
 
-        printf("\n");
-        printf("%s %s %s %d\n", pDirector->nombre, pDirector->paisOrigen, pDirector->fechaNacimiento, pDirector->idDirector);
-
-
+            printf("\n");
+            printf("%s %s %s %d\n", pDirector->nombre, pDirector->paisOrigen, pDirector->fechaNacimiento, pDirector->idDirector);
+        }
+    }
+    else
+    {
+        printf("No se ha cargado ningun director");
     }
 }
 
@@ -208,7 +212,7 @@ ArrayList* borrarDirector(ArrayList* pListDirectores)
     {
         do
         {
-            auxInt = getName(auxNombre, "Ingrese el nombre del director a eliminar:", "ERROR: maximo 51 caracteres", 0, 51);
+            auxInt = getName(auxNombre, "Ingrese el nombre del director a eliminar: ", "ERROR: maximo 51 caracteres", 0, 51);
         }while(auxInt!=0);
         for(i=0;i<pListDirectores->size;i++)
         {
@@ -216,7 +220,7 @@ ArrayList* borrarDirector(ArrayList* pListDirectores)
             if(strcmp(pDirector->nombre, auxNombre) == 0)
             {
                 returnAux = 0;
-                printf("nombre: %s\nid: %d\nFecha de nacimiento %s\nPais de origen: %s", pDirector->nombre, pDirector->idDirector, pDirector->fechaNacimiento, pDirector->paisOrigen);
+                printf("nombre: %s\nid: %d\nFecha de nacimiento %s\nPais de origen: %s\n", pDirector->nombre, pDirector->idDirector, pDirector->fechaNacimiento, pDirector->paisOrigen);
                 do
                 {
                     auxInt = siOno(&respuesta, "Desea eliminarlo? s/n", "ERROR: ingrese 's' o 'n'", 's', 'n');
@@ -232,7 +236,7 @@ ArrayList* borrarDirector(ArrayList* pListDirectores)
         }
         if(returnAux != 0)
         {
-            printf("No existe ningun director con ese nombre!");
+            printf("No existe ningun director con ese nombre!\n");
         }
     }
     return backup;
